@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/btnLoadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Загрузить изображение"/>
+
+    <Spinner
+        android:id="@+id/spinnerFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnLoadImage"
+        android:layout_marginTop="16dp"/>
+</RelativeLayout>
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import jp.co.cyberagent.android.gpuimage.GPUImage;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
+
+import com.bumptech.glide.Glide;
+
+public class MainActivity extends AppCompatActivity {
+    private ImageView imageView;
+    private Button btnLoadImage;
+    private Spinner spinnerFilters;
+    private GPUImage gpuImage;
+    private Bitmap selectedImage;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView = findViewById(R.id.imageView);
+        btnLoadImage = findViewById(R.id.btnLoadImage);
+        spinnerFilters = findViewById(R.id.spinnerFilters);
+
+        gpuImage = new GPUImage(this);
+
+        btnLoadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Диалог выбора изображения
+                // В этом примере просто загрузим изображение из ресурсов
+                selectedImage = BitmapFactory.decodeResource(getResources(), R.drawable.sample_image);
+                imageView.setImageBitmap(selectedImage);
+                applyFilter();
+            }
+        });
+
+        spinnerFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                applyFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Ничего не делаем
+            }
+        });
+    }
+
+    private void applyFilter() {
+        GPUImageFilter selectedFilter = getSelectedFilter();
+        if (selectedFilter != null && selectedImage != null) {
+            gpuImage.setImage(selectedImage);
+            gpuImage.setFilter(selectedFilter);
+            Bitmap filteredImage = gpuImage.getBitmapWithFilterApplied();
+            imageView.setImageBitmap(filteredImage);
+        }
+    }
+
+    private GPUImageFilter getSelectedFilter() {
+        // Вернуть выбранный фильтр на основе позиции в спиннере
+        // В этом примере не реализован выбор фильтров
+        // Здесь вы можете добавить фильтры из библиотеки GPUImage
+        return null;
+    }
+}
