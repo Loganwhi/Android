@@ -6,6 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <ImageViewfirstDatMano>
         android:id="@+id/imageView"
@@ -14,6 +22,19 @@
         android:scaleType="centerCrop"/>
 KtoToMusa
     <Button
+        android:id="@+id/btnLoadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Загрузить изображение"/>
+
+    <Spinner
+        android:id="@+id/spinnerFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnLoadImage"  <Button
         android:id="@+id/btnLoadImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +65,14 @@ import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
 
 import com.bumptech.glide.Glide;
+
+public class MainActivity extends AppCompatActivity {
+    private ImageView imageView;
+    private Button btnLoadImage;
+    private Spinner spinnerFilters;
+    private GPUImage gpuImage;
+    private Bitmap selectedImage;
+port com.bumptech.glide.Glide;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
@@ -89,6 +118,40 @@ public class MainActivity extends AppCompatActivity {
 
     private void applyFilter() {
         GPUImageFilter selectedFilter = getSelectedFilter();
+        if (selectedFilter != null && selectedImage != null) {
+            gpuImage.setImage(selectedImage);
+            gpuImage.setFilter(selectedFilter);
+            Bitmap filteredImage = gpuImage.getBitmapWithFilterApplied();
+            imageView.setImageBitmap(filteredImage);
+        }
+    }
+
+    private GPUImageFilter getSelectedFilter() {   @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                applyFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Ничего не делаем
+            }
+        });
+    }
+
+    private void applyFilter() {
+        GPUImageFilter selectedFilter = getSelectedFilter();
+        if (selectedFilter != null && selectedImage != null) {
+            gpuImage.setImage(selectedImage);
+            gpuImage.setFilter(selectedFilter);
+            Bitmap filteredImage = gpuImage.getBitmapWithFilterApplied();
+            imageView.setImageBitmap(filteredImage);
+        }
+    }
+
+    private GPUImageFilter getSelectedFilter() {
+        // Вернуть выбранный фильтр на основе позиции в спиннере
+        // В этом примере не реализован выбор фильтров
+        // Здесь вы можете добавить фильтры        GPUImageFilter selectedFilter = getSelectedFilter();
         if (selectedFilter != null && selectedImage != null) {
             gpuImage.setImage(selectedImage);
             gpuImage.setFilter(selectedFilter);
