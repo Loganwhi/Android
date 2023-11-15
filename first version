@@ -167,3 +167,72 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 }
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import androidx.appcompat.app.AppCompatActivity;
+import jp.co.cyberagent.android.gpuimage.GPUImage;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
+
+public class MainActivity extends AppCompatActivity {
+    private ImageView imageView;
+    private Button btnLoadImage;
+    private Spinner spinnerFilters;
+    private GPUImage gpuImage;
+    private Bitmap selectedImage;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView = findViewById(R.id.imageView);
+        btnLoadImage = findViewById(R.id.btnLoadImage);
+        spinnerFilters = findViewById(R.id.spinnerFilters);
+
+        gpuImage = new GPUImage(this);
+
+        btnLoadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedImage = BitmapFactory.decodeResource(getResources(), R.drawable.sample_image);
+                imageView.setImageBitmap(selectedImage);
+                applyFilter();
+            }
+        });
+
+        spinnerFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                applyFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing
+            }
+        });
+    }
+
+    private void applyFilter() {
+        GPUImageFilter selectedFilter = getSelectedFilter();
+        if (selectedFilter != null && selectedImage != null) {
+            gpuImage.setImage(selectedImage);
+            gpuImage.setFilter(selectedFilter);
+            Bitmap filteredImage = gpuImage.getBitmapWithFilterApplied();
+            imageView.setImageBitmap(filteredImage);
+        }
+    }
+
+    private GPUImageFilter getSelectedFilter() {
+        // Return the selected filter based on the position in the spinner
+        // In this example, filter selection is not implemented
+        // You can add filters from the GPUImage library here
+        return null;
+    }
+}
