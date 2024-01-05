@@ -143,27 +143,4 @@ public class MainActivity extends AppCompatActivity {
                 applyFilter();
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Do nothing
-            }
-        });
-    }
-
-    private void applyFilter() {
-        GPUImageFilter selectedFilter = getSelectedFilter();
-        if (selectedFilter != null && selectedImage != null) {
-            gpuImage.setImage(selectedImage);
-            gpuImage.setFilter(selectedFilter);
-            Bitmap filteredImage = gpuImage.getBitmapWithFilterApplied();
-            imageView.setImageBitmap(filteredImage);
-        }
-    }
-
-    private GPUImageFilter getSelectedFilter() {
-        // Return the selected filter based on the position in the spinner
-        // In this example, filter selection is not implemented
-        // You can add filters from the GPUImage library here
-        return null;
-    }
-}
+      
