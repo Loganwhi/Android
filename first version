@@ -86,38 +86,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private GPUImageFilter getSelectedFilter() {
-        // Вернуть выбранный фильтр на основе позиции в спиннере
-        // В этом примере не реализован выбор фильтров
-        // Здесь вы можете добавить фильтры        GPUImageFilter selectedFilter = getSelectedFilter();
-        if (selectedFilter != null && selectedImage != null) {
-            gpuImage.setImage(selectedImage);
-            gpuImage.setFilter(selectedFilter);
-            Bitmap filteredImage = gpuImage.getBitmapWithFilterApplied();
-            imageView.setImageBitmap(filteredImage
-    private GPUImageFilter getSelectedFilt) {
-        // Вернуть выбранный фильтр на основе позиции в спиннере
-        // В этом примере не реализован выбор фильтров
-        // Здесь вы можете добавить фильтры из библиотеки GPUImage
-        return nul
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import androidx.appcompat.app.AppCompatActivity;
-import jp.co.cyberagent.android.gpuimage.GPUImage;
-import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
-
-public class MainActivity extends AppCompatActivity {
-    private ImageView imageView;
-    private Button btnLoadImage;
-    private Spinner spinnerFilters;
-    private GPUImage gpuImage;
-    private Bitmap selectedImage
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 applyFilter();
             }
 
