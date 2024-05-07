@@ -7,12 +7,6 @@
         android:layoelativeLayout>
 
 import android.graphics.Bitmap;
-
-
-import androidx.appcompat.app.AppCompatActivity;
-import jp.co.cyberagent.android.gpuimage.GPUImage;
-import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
-
 import com.bumptech.glide.Glide;
 
 public class MainActivity extends AppCompatActivity {
