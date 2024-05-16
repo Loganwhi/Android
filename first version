@@ -15,14 +15,6 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerFilters;
     private GPUImage gpuImage;
     private Bitmap selectedImage;
-port com.bumptech.glide.Glide;
-
-public class MainActivity extends AppCompatActivity {
-    private ImageView imageView;
-    private Button btnLoadImage;
-    private Spinner spinnerFilters;
-    private GPUImage gpuImage;
-    private Bitmap selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
